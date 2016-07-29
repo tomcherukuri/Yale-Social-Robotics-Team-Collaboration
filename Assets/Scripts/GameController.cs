@@ -15,7 +15,9 @@ public class GameController : MonoBehaviour {
 	private int roundsLeft = 0;
 	private int remainingTimeSec = 0;
 
-	public GameObject[] pieces;
+	public GameObject[] possiblePieces;
+	public static int numberOfPiecesInPlay = 3;
+	private GameObject[] piecesInPlay = new GameObject[numberOfPiecesInPlay];
 	public GameObject pieceMenu;
 
 	public Slot[] slots;
@@ -28,22 +30,23 @@ public class GameController : MonoBehaviour {
 	void Awake() {
 		roundsLeft = roundsGiven;
 		remainingRoundTime = roundTimeGiven;
-		for (int i = 0; i < pieces.Length; i++) {
-			GameObject pipe = (GameObject)GameObject.Instantiate (pieces [i]);
-			pipe.transform.SetParent(pieceMenu.transform, false);
-		}
 		// subscribe to the event that alerts the game manager of pieces added to the rocket
 		Slot.OnPieceAdded += PieceAdded;
-
-		columns = 7;
-		rows = 7;
+//		putPiecesIntoPlay ();
+		for (int i = 0; i < numberOfPiecesInPlay; i++) {
+			GameObject piece = (GameObject)GameObject.Instantiate (possiblePieces[(int)UnityEngine.Random.Range(0.0f,5.9f)]);
+			piece.transform.SetParent(pieceMenu.transform, false);				
+			piecesInPlay [i] = piece;
+		}
 		for (int i = 0; i < slots.Length; i++) {
 			slots[i].setActive(false);
 		}
 		GameObject startPiece = (GameObject)GameObject.Instantiate (startPiecePrefab);
 		startPiece.transform.SetParent (slots [startPosition].transform, false);
-		activeSlotPos = startPosition++;
+		slots [startPosition].setOutflow ("right");
+		activeSlotPos = startPosition+1;
 		slots [activeSlotPos].setActive (true);
+		slots [activeSlotPos].setInflow ("left");
 	}
 
 	// Use this for initialization
@@ -67,6 +70,9 @@ public class GameController : MonoBehaviour {
 				remainingTimeSec = roundTimeGiven;
 				SetCountdownTimerText (remainingTimeSec);
 				timeElapsed = 0.0f;
+//				clearPieceMenu ();
+//				putPiecesIntoPlay ();
+
 			}
 		} else { // End the game
 			EndGame();
@@ -74,17 +80,40 @@ public class GameController : MonoBehaviour {
 		// increment the time elapsed
 		timeElapsed += Time.deltaTime;
 	}
-
+//	void clearPieceMenu() {
+//		for (int i = 0; i < pieceMenu.transform.childCount; i++) {
+//			Destroy (pieceMenu.transform.GetChild(i));
+//		}
+//	}
+//	void putPiecesIntoPlay() {
+//		for (int i = 0; i < numberOfPiecesInPlay; i++) {
+//			GameObject piece = (GameObject)GameObject.Instantiate (possiblePieces[(int)UnityEngine.Random.Range(0.0f,5.9f)]);
+//			piece.transform.SetParent(pieceMenu.transform, false);
+//			piecesInPlay [i] = piece;
+//		}
+//	}
 	void PieceAdded(GameObject pieceAdded) {
-		if (slots [activeSlotPos].getOutflow () == "top")
-			slots [activeSlotPos - columns].setActive(true);
-		else if (slots [activeSlotPos].getOutflow () == "right")
-			slots [activeSlotPos + 1].setActive(true);
-		else if (slots [activeSlotPos].getOutflow () == "bottom")
-			slots [activeSlotPos + columns].setActive(true);
-		else if (slots [activeSlotPos].getOutflow () == "left")
-			slots [activeSlotPos - 1].setActive(true);
 		slots [activeSlotPos].setActive(false);
+		string inFlow = "";
+		if (slots [activeSlotPos].getOutflow () == "top") {
+			activeSlotPos = activeSlotPos - columns;
+			slots [activeSlotPos].setActive (true);
+			inFlow = "bottom";
+		} else if (slots [activeSlotPos].getOutflow () == "right") {
+			activeSlotPos = activeSlotPos + 1;
+			slots [activeSlotPos].setActive (true);
+			inFlow = "left";
+		} else if (slots [activeSlotPos].getOutflow () == "bottom") {
+			activeSlotPos = activeSlotPos + columns;
+			slots [activeSlotPos].setActive (true);
+			inFlow = "top";
+		} else if (slots [activeSlotPos].getOutflow () == "left") {
+			activeSlotPos = activeSlotPos - 1;
+			slots [activeSlotPos].setActive(true);
+			inFlow = "right";
+		}
+		slots [activeSlotPos].setInflow (inFlow);
+		Debug.Log (inFlow);
 	}
 
 	void EndGame() {
@@ -115,18 +144,5 @@ public class GameController : MonoBehaviour {
 		return string.Format("{0:D2}:{1:D2}", min, sec);
 	}
 }
-	//		if (pieceAdded.tag == "Horizontal") {
-	//
-	//		}
-	//		else if (pieceAdded.tag == "LowerL") {
-	//			
-	//		}
-	//		else if (pieceAdded.tag == "LowerR") {
-	//		}
-	//		else if (pieceAdded.tag == "UpperL") {
-	//		}
-	//		else if (pieceAdded.tag == "UpperR") {
-	//		}
-	//		else if (pieceAdded.tag == "Vertical") {
-	//		}
+
 

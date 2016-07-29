@@ -26,12 +26,13 @@ public class Slot : MonoBehaviour, IDropHandler {
 	public void OnDrop (PointerEventData eventData) {
 		pieceBeingDragged = DragHandler.itemBeingDragged;
 		pieceInfo = pieceBeingDragged.GetComponent<PieceInfo> ();
-		if (!item && getActive() && validPiece()) {
+		if ((!item) && getActive() && validPiece() ) {
 			DragHandler.itemBeingDragged.transform.SetParent (transform);
 			determineOutflow ();
+			// If a piece has been dragged successfully, we'll let the game manager know
+			OnPieceAdded (DragHandler.itemBeingDragged);
 		}
-		// If a piece has been dragged successfully, we'll let the game manager know
-		OnPieceAdded (DragHandler.itemBeingDragged);
+
 	}
 	#endregion
 	 
@@ -86,10 +87,10 @@ public class Slot : MonoBehaviour, IDropHandler {
 		return isActive;
 	}
 
-	public void setOutlow(string direction) {
+	public void setInflow(string direction) {
 		flowInDirection = direction;
 	}
-	public string getOutlow() {
+	public string getInflow() {
 		return flowInDirection;
 	}
 
