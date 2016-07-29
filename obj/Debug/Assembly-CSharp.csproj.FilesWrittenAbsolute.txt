@@ -1,0 +1,17 @@
+/Users/tomcherukuri/Unity/Yale Team Collaboration/Temp/bin/Debug/UnityEngine.dll
+/Users/tomcherukuri/Unity/Yale Team Collaboration/Temp/bin/Debug/UnityEditor.dll
+/Users/tomcherukuri/Unity/Yale Team Collaboration/Temp/bin/Debug/UnityEngine.Networking.dll
+/Users/tomcherukuri/Unity/Yale Team Collaboration/Temp/bin/Debug/UnityEngine.UI.dll
+/Users/tomcherukuri/Unity/Yale Team Collaboration/Temp/bin/Debug/Mono.Cecil.dll
+/Users/tomcherukuri/Unity/Yale Team Collaboration/Temp/bin/Debug/Unity.SerializationLogic.dll
+/Users/tomcherukuri/Unity/Yale Team Collaboration/Temp/bin/Debug/Unity.DataContract.dll
+/Users/tomcherukuri/Unity/Yale Team Collaboration/Temp/bin/Debug/ICSharpCode.NRefactory.dll
+/Users/tomcherukuri/Unity/Yale Team Collaboration/Temp/bin/Debug/Unity.UNetWeaver.dll
+/Users/tomcherukuri/Unity/Yale Team Collaboration/Temp/bin/Debug/Unity.UNetWeaver.dll.mdb
+/Users/tomcherukuri/Unity/Yale Team Collaboration/Temp/bin/Debug/Unity.CecilTools.dll
+/Users/tomcherukuri/Unity/Yale Team Collaboration/Temp/bin/Debug/Mono.Cecil.Pdb.dll
+/Users/tomcherukuri/Unity/Yale Team Collaboration/Temp/bin/Debug/Mono.Cecil.Mdb.dll
+/Users/tomcherukuri/Unity/Yale Team Collaboration/Temp/bin/Debug/Assembly-CSharp.dll.mdb
+/Users/tomcherukuri/Unity/Yale Team Collaboration/Temp/bin/Debug/Assembly-CSharp.dll
+/Users/tomcherukuri/Unity/Yale Team Collaboration/obj/Debug/Assembly-CSharp.dll
+/Users/tomcherukuri/Unity/Yale Team Collaboration/obj/Debug/Assembly-CSharp.dll.mdb
